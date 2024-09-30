@@ -1,9 +1,9 @@
 import { useState } from "react";
-// { items: [], heading: string }
+import "./ListGroup.css"
+
 interface Props {
   items: string[];
   heading: string;
-  // (items: string) => void
   onSelectItem: (item: string) => void;
 }
 
