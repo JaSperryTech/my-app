@@ -1,11 +1,17 @@
-import Like from "./components/Like";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-function App() {
-  return (
-    <div>
-      <Like onClick={() => console.log("Clicked")} />
-    </div>
-  );
-}
+import { useState } from "react";
+
+const App = () => {
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  const [person, setPerson] = useState({
+    firstName: "",
+    lastName: "",
+  });
+  const [isLoading, setLoading] = useState(false);
+
+  return <div></div>;
+};
 
 export default App;
