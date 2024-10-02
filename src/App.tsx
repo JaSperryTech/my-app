@@ -4,8 +4,6 @@ const App = () => {
   return (
     <div>
       <Message />
-      <Message />
-      <Message />
     </div>
   );
 };
