@@ -1,11 +1,9 @@
-import ExpandableText from "./components/ExpandableText";
+import Form from "./components/Form";
 
 const App = () => {
   return (
     <div>
-      <ExpandableText maxChars={10}>
-        jndsnkjfsdanjfdasnjknfakjsdn jkfadsn;
-      </ExpandableText>
+      <Form />
     </div>
   );
 };
