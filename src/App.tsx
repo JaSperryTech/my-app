@@ -1,9 +1,11 @@
-import Form from "./components/Form";
+import ExpenseForm from "./components/expense-tracker/ExpenseForm";
+import ExpenseList from "./components/expense-tracker/ExpenseList"
 
 const App = () => {
   return (
     <div>
-      <Form />
+      <ExpenseForm />
+      <ExpenseList />
     </div>
   );
 };
