@@ -1,27 +1,35 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import categories from "../categories";
 
 const schema = z.object({
   description: z
     .string()
-    .min(1, { message: "Description must be at least 10 characters" }),
+    .min(3, { message: "Description must be at least 3 characters." })
+    .max(50),
   amount: z
-    .number()
-    .min(1, { message: "Amount must be at least 10 characters" }),
-  // category: z.
+    .number({ invalid_type_error: "Amount is required." })
+    .min(0.01, { message: "Amount must be at least 1 cent." })
+    .max(100_000),
+
+  category: z.enum(categories, {
+    errorMap: () => ({ message: "Category is required." }),
+  }),
 });
 
-type FormData = z.infer<typeof schema>;
+type ExpenseFormData = z.infer<typeof schema>;
 
-const ExpenseList = () => {
+interface Props {
+  onSubmit: (data: ExpenseFormData) => void;
+}
+
+const ExpenseForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
-
-  const onSubmit = (data: FieldValues) => console.log(data);
+  } = useForm<ExpenseFormData>({ resolver: zodResolver(schema) });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -53,6 +61,21 @@ const ExpenseList = () => {
           <p className="text-danger">{errors.amount.message}</p>
         )}
       </div>
+      <div className="mb-3">
+        <label htmlFor="category" className="form-label">
+          Category
+        </label>
+        <select {...register("category")} id="category" className="form-select">
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+        {errors.category && (
+          <p className="text-danger">{errors.category.message}</p>
+        )}
+      </div>
       <button disabled={!isValid} className="btn btn-primary" type="submit">
         Submit
       </button>
@@ -60,4 +83,4 @@ const ExpenseList = () => {
   );
 };
 
-export default ExpenseList;
+export default ExpenseForm;
